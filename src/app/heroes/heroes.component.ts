@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Hero } from '../hero';
-import { HEROES } from './../mock-heroes';
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-heroes',
@@ -14,15 +14,20 @@ export class HeroesComponent implements OnInit {
     name: 'Windstorm'
   };
 
-  heroes = HEROES;
+  heroes: Hero[];
 
   selectedHero: Hero;
 
   // constructor de la clase
-  constructor() { }
+  constructor(private heroService: HeroService) { }
 
   // constructor del componente
   ngOnInit(): void {
+    this.getHeroes();
+  }
+
+  getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
   }
 
   onSelect(hero: Hero): void {
